@@ -102,7 +102,7 @@ resource "azurerm_public_ip" "catapp-pip" {
   domain_name_label   = "${var.prefix}-meow"
 }
 
-resource "azurerm_virtual_machine" "devops" {
+resource "azurerm_virtual_machine" "catapp" {
   name                = "${var.prefix}-meow"
   location            = var.location
   resource_group_name = azurerm_resource_group.myresourcegroup.name
@@ -135,7 +135,10 @@ resource "azurerm_virtual_machine" "devops" {
     disable_password_authentication = false
   }
 
-  tags = {}
+  tags = {
+    Department = "devops"
+    Billable = "true"
+  }
 
   # Added to allow destroy to work correctly.
   depends_on = [azurerm_network_interface_security_group_association.catapp-nic-sg-ass]
